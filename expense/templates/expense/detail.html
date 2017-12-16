@@ -1,0 +1,11 @@
+<h1>{{ company.company_name }}</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'expense:select' company.id %}" method="post">
+{% csrf_token %}
+{% for department in company.department_set.all %}
+    <input type="radio" name="department" id="department{{ forloop.counter }}" value="{{ department.id }}" />
+    <label for="department{{ forloop.counter }}">{{ department.department_name }}</label><br />
+{% endfor %}
+<input type="submit" value="Select" />
+</form>
